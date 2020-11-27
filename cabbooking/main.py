@@ -3,6 +3,7 @@ from driver_info_provider import Driver
 from location_finder import distance
 from welcoming import Booking
 from rider_info_provider import Rider
+from endTrip import destination
 
 # this is a process to access all the given code
 if __name__ == "__main__":
@@ -57,20 +58,30 @@ if __name__ == "__main__":
             continue
 
         if entry == "bookme":  # to know if the rider wants to book or not
-            print(" THANKS!!   For Booking with us lets go BUDDY!  ")
-
+            print(" THANKS!!   For Booking with us , Please provide your destination:")
+            d1 = int(input("please enter x Coordinate:  "))
+            d2 = int(input("please enter y Coordinate:  "))
+        
            # to calculate the distance between driver and rider
             distanceArr = 100000000000000000000000
             selctedCab = None
             for i in range(len(alldrivers)):
-                d = distance(alldrivers[i]['x1'], alldrivers[i]
-                             ['x2'], allriders[0]['y1'], allriders[0]['y2'])
+                d = distance(alldrivers[i]["x1"], alldrivers[i]
+                             ["x2"], allriders[0]["y1"], allriders[0]["y2"])
                 print("These are the Available  DRIVERS  ",
-                      alldrivers[i]['name'], "at following Distance from you", d)
+                      alldrivers[i]['name'], "at a Distance of ", d,"km")
                 if d < distanceArr:
                     distanceArr = d
                     selctedCab = alldrivers[i]
             print(" so this cab ", selctedCab, "is coming to PICK YOU UP ! ")
         
-        print("HAPPY JOURNEY")
-        break
+            print("HAPPY JOURNEY")
+
+            #to calculate the fare of the trip
+            price_per_km = 9
+            for j in range(len(allriders)):
+                l = destination(allriders[0]["y1"], allriders[0]['y2'],d1, d2)
+                print("Please Pay the Driver",price_per_km*l,"RUPEES")
+                break
+
+        
